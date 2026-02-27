@@ -9,7 +9,7 @@ services:
     env_file:
       - ../.env
     ports:
-      - "30014:30014"
+      - "30014:3000"
     deploy:
       resources:
         limits:

@@ -64,7 +64,7 @@ node {
   env.SSH_HOST_PORT = "22" // Port for the SSH connection
   env.SSH_USER = "ovidiuradu" // User for the SSH connection
   env.PROJECT_DIR = "/home/developers/ovidiuradu/docker/pr-agent" // Directory where the deployment is done
-  env.SSH_CREDS = "cicd-ssh-creds" // SSH credentials, SSH key, and user for server connection
+  env.SSH_CREDS = "pr-agent-ssh-creds" // SSH credentials, SSH key, and user for server connection
   env.DISCORD_WEBHOOK = "oxide-webhook" // The webhook for the Discord test channel, intended for deployment notifications.
   // env.DISCORD_WEBHOOK = "project-webhook" // The webhook for the Discord official project channel, intended for deployment notifications.
   // env.TEAMS_WEBHOOK = "project-teams-webhook" //The webhook for the Teams project channel, intended for deployment notifications.

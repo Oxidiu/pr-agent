@@ -5,8 +5,11 @@ services:
     image: codiumai/pr-agent:latest
     container_name: pr-agent
     restart: unless-stopped
+    build:
+      context: ../  # unde se afla Dockerfile si .env
+      dockerfile: ci/Dockerfile
     env_file:
-      - .env
+      - ../.env
     ports:
       - "30014:30014"   # map container port 30014 to host
     command: python -m pr_agent.servers.bitbucket_server

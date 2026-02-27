@@ -1,18 +1,15 @@
-version: "3.9"
-
 services:
   pr-agent:
-    image: codiumai/pr-agent:latest
+    build:
+      context: ../
+      dockerfile: ci/Dockerfile
+      target: bitbucket_server_webhook   # folosește stage-ul webhook
     container_name: pr-agent
     restart: unless-stopped
-    build:
-      context: ../  # unde se afla Dockerfile si .env
-      dockerfile: ci/Dockerfile
     env_file:
       - ../.env
     ports:
-      - "30014:30014"   # map container port 30014 to host
-    command: python -m pr_agent.servers.bitbucket_server
+      - "30014:30014"
     deploy:
       resources:
         limits:

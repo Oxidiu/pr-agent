@@ -1,5 +1,6 @@
 services:
   pr-agent:
+    image: codiumai/pr-agent:bitbucket_server_webhook
     build:
       context: ../
       dockerfile: ci/Dockerfile

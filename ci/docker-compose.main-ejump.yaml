@@ -1,10 +1,10 @@
 services:
   pr-agent:
-    image: codiumai/pr-agent:bitbucket_server_webhook
+    image: codiumai/pr-agent:bitbucket_app
     build:
       context: ../
       dockerfile: ci/Dockerfile
-      target: bitbucket_server_webhook   # folosește stage-ul webhook
+      target: bitbucket_app   # folosește stage-ul webhook
     container_name: pr-agent
     restart: unless-stopped
     env_file:

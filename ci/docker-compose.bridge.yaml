@@ -1,0 +1,17 @@
+services:
+  pr-agent-bridge:
+    build:
+      context: ../
+      dockerfile: ci/Dockerfile.bridge
+    image: codiumai/pr-agent:bridge
+    container_name: pr-agent-bridge
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    ports:
+      - "30015:3000"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G

@@ -22,6 +22,45 @@ class TestGetMaxTokens:
 
         assert get_max_tokens(model) == expected
 
+    @pytest.mark.parametrize("model", ["gpt-5.4", "gpt-5.4-2026-03-05"])
+    def test_gpt54_model_max_tokens(self, monkeypatch, model):
+        fake_settings = type('', (), {
+            'config': type('', (), {
+                'custom_model_max_tokens': 0,
+                'max_model_tokens': 0
+            })()
+        })()
+
+        monkeypatch.setattr(utils, "get_settings", lambda: fake_settings)
+
+        assert get_max_tokens(model) == 272000
+
+    @pytest.mark.parametrize("model", ["gpt-5.4-mini", "gpt-5.4-mini-2026-03-17"])
+    def test_gpt54_mini_model_max_tokens(self, monkeypatch, model):
+        fake_settings = type('', (), {
+            'config': type('', (), {
+                'custom_model_max_tokens': 0,
+                'max_model_tokens': 0
+            })()
+        })()
+
+        monkeypatch.setattr(utils, "get_settings", lambda: fake_settings)
+
+        assert get_max_tokens(model) == 400000
+
+    @pytest.mark.parametrize("model", ["gpt-5.4-nano", "gpt-5.4-nano-2026-03-17"])
+    def test_gpt54_nano_model_max_tokens(self, monkeypatch, model):
+        fake_settings = type('', (), {
+            'config': type('', (), {
+                'custom_model_max_tokens': 0,
+                'max_model_tokens': 0
+            })()
+        })()
+
+        monkeypatch.setattr(utils, "get_settings", lambda: fake_settings)
+
+        assert get_max_tokens(model) == 400000
+
     # Test situations where the model is not registered and exists as a custom model
     def test_model_has_custom(self, monkeypatch):
         fake_settings = type('', (), {
@@ -35,6 +74,25 @@ class TestGetMaxTokens:
 
         model = "custom-model"
         expected = 5000
+
+        assert get_max_tokens(model) == expected
+
+    @pytest.mark.parametrize("model", [
+        "gpt-5.1-codex",
+        "gpt-5.2-codex",
+        "gpt-5.3-codex",
+    ])
+    def test_gpt_codex_models_max_tokens(self, monkeypatch, model):
+        fake_settings = type('', (), {
+            'config': type('', (), {
+                'custom_model_max_tokens': 0,
+                'max_model_tokens': 0
+            })()
+        })()
+
+        monkeypatch.setattr(utils, "get_settings", lambda: fake_settings)
+
+        expected = MAX_TOKENS[model]
 
         assert get_max_tokens(model) == expected
 
@@ -69,10 +127,14 @@ class TestGetMaxTokens:
         assert get_max_tokens(model) == expected
 
     @pytest.mark.parametrize("model", [
+        "gemini/gemini-3-flash-preview",
+        "vertex_ai/gemini-3-flash-preview",
         "gemini/gemini-3-pro-preview",
         "vertex_ai/gemini-3-pro-preview",
         "gemini/gemini-3.1-pro-preview",
         "vertex_ai/gemini-3.1-pro-preview",
+        "gemini/gemini-3.1-flash-lite-preview",
+        "vertex_ai/gemini-3.1-flash-lite-preview",
     ])
     def test_gemini_3_and_3_1_pro_preview(self, monkeypatch, model):
         fake_settings = type("", (), {
